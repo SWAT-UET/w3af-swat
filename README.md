@@ -630,24 +630,36 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 - File log
 
 ## 13. Giao diện đồ họa (GUI)
-//TODO chưa hoàn thành
-### a. Cấu trúc chung 
-
+//TODO chưa hoàn thành 
+### a. Cấu trúc chung  
+// TODO @k54hungyb	
 <img src="http://docs.w3af.org/en/latest/_images/general-structure.png">
 
 1. Thanh menu
 2. Toolbar
 3. Các tab chức năng
 4. 
-
 #### Toolbar
- 
 
+### b. Quét lỗ hổng
+// TODO @k54hungyb
 
+### c. Phân tích kết quả 
+// TODO @ngtuanthanh
 
+### d. Khai thác 
+// TODO @congoccho
 
+### e. Các công cụ 
+// TODO @toioccho
 
+### f. Cấu hình 
+// TODO @dungtran211096
 
+----
+// TODO @dungtran211096 : viết mục lục, đặt liên kết trong trang
 
+## 14. Tham khảo
 
+http://docs.w3af.org/en/latest/
 
