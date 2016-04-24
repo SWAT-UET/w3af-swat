@@ -776,8 +776,8 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 
 - Trong thanh công cụ [8] bạn có một nút Activate để kiểm soát nếu proxy được kích hoạt hay không, một yêu cầu nút Trap đó sẽ xác định nếu các proxy là để cho các yêu cầu đi qua mà không có thủ tục giải thích ở trên, và một nút Configuration(tham khảo thêm [Certificate authority configuration](http://docs.w3af.org/en/latest/ca-config.html)).
 
-*Trên đây là bài viết của mình về các tool trong w3af_gui. Phiên bản của chúng ta dùng những cửa sổ của các công cụ hiện ra sẽ khác nhưng những button thì cũng như nhau cả thôi!!!. Đơn giản và cũng khá dễ hiểu để biết chi tiết hơn hãy tham khảo nguồn: link bên dưới nhé!*
-*Nguồn* : http://docs.w3af.org/en/latest/gui/index.html
+*Trên đây là bài viết của mình về các tool trong w3af_gui. Phiên bản của chúng ta dùng những cửa sổ của các công cụ hiện ra sẽ khác nhưng những button thì cũng như nhau cả thôi!!!. Đơn giản và cũng khá dễ hiểu để biết chi tiết hơn hãy tham khảo nguồn: http://docs.w3af.org/en/latest/gui/index.html*
+
 
 
 
