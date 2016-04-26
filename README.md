@@ -701,6 +701,7 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 <a name="gui"></a>
 ## 13. Giao diện đồ họa (GUI)
 //TODO chưa hoàn thành 
+
 <a name="guistr">
 ### a. Cấu trúc chung  
 // TODO @k54hungyb	
@@ -711,20 +712,24 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 3. Các tab chức năng
 4. 
 #### Toolbar
+
 <a name="scanvul"></a>
 ### b. Quét lỗ hổng
 // TODO @k54hungyb
+
 <a name="analysis"></a>
 ### c. Phân tích kết quả 
 // TODO @ngtuanthanh
+
 <a name="discovery"></a>
 ### d. Khai thác 
 // TODO @congoccho
+
 <a name="tools"></a>
 ### e. Các công cụ 
 
 <a name="wizard"></a>
-####1. Wizard
+##### Wizard
 - Wizard: Tạo 1 cấu hình mới để quét trang web mục tiêu.
 
 - Khi bấm Wizard  trên thanh công cụ một cửa sổ mới sẽ hiện ra.
@@ -739,7 +744,7 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 -  Sau đó bấm Next để cài đặt cho cấu hình mới. Cuối cùng là điền tên và mô tả về cấu hình mới sau đó bấm save.
 
 <a name = "manual"></a>
-####2.  Manual request (nhãn yêu cầu).
+##### Manual request (nhãn yêu cầu).
 - Công cụ này cho phép bạn gửi yêu cầu đến HTTP.
 
 <img src = "http://docs.w3af.org/en/latest/_images/manual-http.png">
@@ -751,7 +756,7 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 - Sau đó sẽ nhận được hồi đáp ở phần Response.
 
 <a name = "fuzzy"></a>
-####3. Fuzzy request (yêu cầu mờ)
+##### Fuzzy request (yêu cầu mờ)
 - Công cụ này cho phép bạn gửi được nhiều yêu cầu đến HTTP một cách dễ dàng và kiểm soát được nó.
 
 - Khi bạn tạo ra một yêu cầu, tất cả các văn bản được gửi đến đích, ngoại trừ những phần được bên trong hai dấu  $. Văn bản này được sử dụng bởi hệ thống để tạo ra một “máy phát  mờ”, mà nó sẽ tiêu thụ tạo ra nhiều yêu cầu.
@@ -781,7 +786,7 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 -Ngoài ra bạn có các nút khác nhau giúp bạn xem đồ thị tốt hơn: phóng to, thu nhỏ, phù hợp với tất cả các đồ thị trong cửa sổ, và hiển thị các đồ thị trong các kích thước ban đầu.
 
 <a name="encode"></a>
-####4. Encode and Decode
+##### Encode and Decode
 - Công cụ này cho phép bạn áp dụng một số chức năng mã hóa và giải mã trong văn bản mà bạn muốn.
 
 <img src = "http://docs.w3af.org/en/latest/_images/encode-decode.png">
@@ -826,7 +831,7 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 	UTF-8 Endode:  Lưu ý rằng các giá trị thập lục phân được hiển thị với 1%.
 
 <a name="compare"></a>
-####5. Comparing HTTP traffic
+##### Comparing HTTP traffic
 - Với công cụ này bạn sẽ có thể so sánh các yêu cầu khác nhau và hồi đáp.
 
 - Trong công cụ này tất cả các thông tin được nối trong cùng một văn bản, để dễ dàng so sánh, nhưng bạn có nút [1] để kiểm soát một phần của thông tin xuất hiện trong văn bản: tiêu đề yêu cầu, nội dung yêu cầu , tiêu đề hồi đáp và nội dung hồi đáp.
@@ -840,7 +845,7 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 - Các yêu cầu cũng có thể được gửi từ công cụ này để yêu cầu bằng tay hoặc yêu cầu những yêu cầu mờ, sử dụng các nút trên các văn bản [9]. Ngoài ra còn có một nút [A] để gửi tất cả các hồi đáp ở các quyền công cụ Responses Cluster.
 
 <a name="proxy"></a>
-####6. Using the Proxy
+##### Using the Proxy
 - Công cụ này là một proxy nó nghe một cổng trong máy bạn đang chạy chương trình w3af. Bạn có thể cấu hình bất kỳ chương trình mà vấn đề yêu cầu HTTP (như trình duyệt internet của bạn, ví dụ) để sử dụng proxy.
 
 - Khi chương trình này yêu cầu các vấn đề khác, các proxy nắm bắt nó và bạn thấy nó ở [1]. Bạn có thể chọn để giảm yêu cầu này ở nút Drop [2], hoặc để yêu cầu tiếp tục. Nếu bạn chọn sau, bạn có thể chỉnh sửa theo yêu cầu như bạn muốn, và sau đó nhấn vào nút Gửi [3].
@@ -858,16 +863,16 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 
 <a name="config"></a>
 ### f. Cấu hình
-Các bảng điều khiển cấu hình khác nhau trên mọi hệ thống w3af.Ở đây tất cả bảng đều được giải thích
-#### HTTP configuration
+Các bảng điều khiển cấu hình khác nhau trên mọi hệ thống w3af. Ở đây tất cả bảng đều được giải thích
+##### HTTP configuration
 Phần này thường sử dụng cài đặt cấu hình `URL`,nó sẽ ảnh hưởng lên core và tất cả plugins.
 <img src="http://docs.w3af.org/en/latest/_images/http-settings.png">
 
-####Miscellaneous configuration
+##### Miscellaneous configuration
 DÙng để cài đặt cấu hình `misc`, nó ảnh hưởng lên core và tất cả plugins.
-<img src="">
+<img src="http://docs.w3af.org/en/latest/_images/misc-settings.png">
 
-####Advanced Target configuration
+##### Advanced Target configuration
 Thường được dùng để cung cấp thông tin chi tiết về hệ thống `mục tiêu`.
 <img src="http://docs.w3af.org/en/latest/_images/target-conf.png">
 
