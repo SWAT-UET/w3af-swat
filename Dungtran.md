@@ -42,6 +42,8 @@ ghi chép về w3af
   - [13.5 Các công cụ](#tools)
   - [13.6 Cấu hình](#config)
 - [14. Tham khảo](#refer)
+
+
 ===
 <a name="contents"></a>
 ## 1. w3af là gì ? 
@@ -716,15 +718,20 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 <a name="tools"></a>
 ### e. Các công cụ 
 // TODO @toioccho
+
 <a name="config"></a>
 ### f. Cấu hình
 Các bảng điều khiển cấu hình khác nhau trên mọi hệ thống w3af.Ở đây tất cả bảng đều được giải thích
+
 #### HTTP configuration
 Phần này thường sử dụng cài đặt cấu hình `URL`,nó sẽ ảnh hưởng lên core và tất cả plugins.
 <img src="http://docs.w3af.org/en/latest/_images/http-settings.png">
+
 ####Miscellaneous configuration
 DÙng để cài đặt cấu hình `misc`, nó ảnh hưởng lên core và tất cả plugins.
-<img src="">
+
+<img src="http://docs.w3af.org/en/latest/_images/misc-settings.png">
+
 ####Advanced Target configuration
 Thường được dùng để cung cấp thông tin chi tiết về hệ thống `mục tiêu`.
 <img src="http://docs.w3af.org/en/latest/_images/target-conf.png">
