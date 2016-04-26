@@ -1,14 +1,58 @@
+<a name="top"></a> 
 # w3af 
 ghi chép về w3af
-
-<a name=""></a>
+***
+## Mục lục
+- [1. Khái niệm](#contents)
+- [2. Cài đặt](#install)
+  - [2.1. Chuẩn bị](#prepare)
+  - [2.2. Cài đặt](#setup)
+- [3. Cấu trúc](#structure)
+  - [3.1 Plugins](#plugins)
+    - [3.1.1 Crawl plugins](#crawl)
+    - [3.1.2 Audit plugins](#audit)
+    - [3.1.3 Attack plugins](#attack)
+  - [3.2 Plugins khác](#otherplugins)
+    - [3.2.1 Infrastructure](#infra)
+    - [3.2.2 Grep](#grep)
+    - [3.2.3 Output](#output)
+    - [3.2.4 Mangle](#mangle)
+    - [3.2.5 Bruteforce](#brute)
+    - [3.2.6 Evasion](#eva)
+  - [3.3 Cấu hình quét](#scan)
+  - [3.4 Khuyến nghị cấu hình](#reconfig)
+- [4. Thực hiện](#running)
+- [5. Tự động hóa việc sử dụng script ](#auto)
+- [6. Xác thực](#auth)
+- [7. Các trường hợp sử dụng thông thường](#regular)
+- [8. Các trường hợp sử dụng nâng cao](#specially)
+- [9. W3AF bên trong docker](#docker)
+  - [9.1 Các port và service](#port)
+  - [9.2 Chia sẻ dữ liệu với container](#container)
+  - [9.3 Sửa lỗi container](#fix)
+- [10. Khai thác lỗ hổng ứng dụng web ](#exploit)
+- [11. Thanh tóan ứng dụng web](#payload)
+- [12. Báo lỗi](#warning)
+  - [12.1 Thực hành báo lỗi](#pracwarn)
+- [13. Giao diện đồ họa (GUI)](#gui)
+  - [13.1 Cấu trúc chung](#guistr)
+  - [13.2 Quét lỗ hổng](#scanvul)
+  - [13.3 Phân tích kết quả](#analysis)
+  - [13.4 Khai thác](#discovery)
+  - [13.5 Các công cụ](#tools)
+  - [13.6 Cấu hình](#config)
+- [14. Tham khảo](#refer)
+===
+<a name="contents"></a>
 ## 1. w3af là gì ? 
 **w3af** (web application attack and audit framework) là một công cụ hỗ trợ kiểm thử bảo mật cho các ứng dụng web. 
 
-<a name=""></a>
+<a name="install"></a>
 ## 2. Cài đặt (ví dụ trên Ubuntu 14.04 LTS)
+
 Cài đặt trên các nền tảng khác có thể xem [tại đây](http://docs.w3af.org/en/latest/install.html)
 
+<a name="prepare"></a>
 ### Các công cụ cần có :
 - Git client : 
 	
@@ -18,7 +62,7 @@ Cài đặt trên các nền tảng khác có thể xem [tại đây](http://doc
 - Pip version 1.1 (công cụ để quản lý các cài cắm lib của Python)
 	
 		$ apt-get install python-pip
-
+<a name="setup"></a>
 ### Cài đặt
 ```
 git clone https://github.com/andresriancho/w3af.git
@@ -38,10 +82,13 @@ Sau khi quá trình hoàn tất
 - ./w3af_console để sử dụng giao diện console.
 - ./w3af_gui để sử dụng giao diện đồ họa (lưu ý khi chạy có thể yêu cầu thêm một số gói, chỉ cần làm theo hướng dẫn hiện ra)
 
-<a name=""></a>
+<a name="structure"></a>
 ## 3. Cấu trúc 
+
 Framework này chia làm 3 nhóm plugin chính : `crawl`, `audit` và `attack`.
-### a. Các plugin chính
+<a name="plugins"></a>
+### 3.1. Các plugin chính 
+<a name="crawl"></a>
 #### Crawl plugins
 Chúng chỉ có một nhiệm vụ là tìm những URL, form hoặc những điểm tiêm nhiễm khác.
 
@@ -51,25 +98,30 @@ Khi một người dùng cho phép nhiều hơn một plugin loại này, chúng
 
 Nếu `plugin A` tìm thấy URL mới trong lần chạy đầu tiên, w3af sẽ gửi cho `plugin B`. Nếu `plugin B` sau đó tìm được URL mới, nó sẽ gửi cho `plugin A`. Tiến trình này sẽ tiếp diễn cho đến khi tất cả các tiến trình đều chạy và không tìm thêm được thông tin về các ứng dụng khác. 
 
+<a name="audit"></a>
 #### Audit plugins
 
 Nhận các điểm tiêm nhiễm được tìm thấy bởi `crawl plugins` và nhận diện các lỗ hổng.
 
 Một ví dụ điển hình của `audit plugin` là khi tìm kiếm lỗ hổng SQL Injection, nó sẽ gửi `a'b''c` tới tất cả các điểm tiêm nhiễm.
 
+<a name="attack"></a>
 #### Attack plugins
 Đối tượng của chúng là những lỗ hổng được tìm thấy bởi các `audit plugin`. Chúng thường trả về một `shell` trên remote server hoặc một `dump` của `remote tables` trong trường hợp khai thác SQL Injection.
 
+<a name="otherplugins"></a>
 ### b. Các plugin khác
+<a name="infra"></a>
 #### Infrastructure
 Xác định các thông tin về mục tiêu hệ thống như WAF (web application firewalls), hệ điều hành, HTTP daemon.
-
+<a name="grep"></a>
 #### Grep 
 Phân tích HTTP request và HTTP response được gửi từ những plugin khác và xác định các lỗ hổng.
 Ví dụ, một grep plugin sẽ tìm comment trong HTML body có chứa "password" và phát ra một lỗ hổng.
 
 <img src="http://i.imgur.com/IIl8tv9.png">
 
+<a name="output"></a>
 #### Output 
 Cách giao tiếp giữa framework và plugin với người dùng. 
 
@@ -77,21 +129,25 @@ Output plugin sẽ lưu dữ liệu  dưới dạng file text, xml, html. Nhữn
 
 Thông điệp được gửi ra output sẽ được gửi tới các plugin được bật, nên nếu bạn cho phép ra 2 output plugin là `text_file` và `xml_file` thì cả hai sẽ log các lỗ hổng được tìm thấy bởi audit plugin.
 
+<a name="mangle"></a>
 #### Mangle
 Cho phép thay đổi các request và response trên cơ sở các biểu thức thông thường.
 
+<a name="brute"></a>
 #### Bruteforce
 Bruteforce logins sẽ được tìm thấy trong suốt giai đoạn `crawl`.
 
+<a name="eva"></a>
 #### Evasion 
 Những quy tắc tránh phát hiện xâm nhập đơn giản bằng cách thay đổi giao thức HTTP được tạo ra bởi các plugin khác. 
 
-
+<a name="scan"></a>
 ### c. Cấu hình quét
 Sau khi cấu hình những plugin `crawl` và `audit` và cài URL đích, bắt đầu quét và đợi cho các lỗ hổng xuất hiện trên giao diện người dung.
 
 Một vài lỗ hổng được tìm thấy trong suốt quá trình quét được lưu lại và được dùng làm input cho các plugin `attack`. Một khi quá trình quét kết thúc, người dùng sẽ có thể thực thi các plugin `attack` trên các lỗ hổng được xác định.
 
+<a name="reconfig"></a>
 ### d. Khuyến nghị cấu hình
 Chú ý: Thời gian quét phụ thuộc nhiều vào số lượng plugin được bật lên.
 
@@ -101,8 +157,9 @@ Trong hầu hết các trường hợp, `w3af` khuyến nghị nên sử dụng 
 - audit : tất cả
 - grep : tất cả 
 
-<a name=""></a>
+<a name="running"></a>
 ## 4. Chạy w3af 
+
 **w3af** có 2 giao diện người dùng : console và đồ họa. 
 
 Bài viết này sẽ trình bày về giao diện console để dễ dàng giải thích các đặc trưng của framework.
@@ -349,8 +406,9 @@ Cuối cùng, `start` để bắt đầu :
 w3af>>> start
 ```
 
-<a name=""></a>
+<a name="auto"></a>
 ## 5. Tự động hóa việc sử dụng script
+
 Khi phát triển w3af, chúng ta cần thực thi một cách nhanh chóng và dễ dàng theo từng bước, vì thế script được sinh ra để làm điều này. Sử dụng option `-s` để chạy script.
 
 File script là một file text các lệnh trong `w3af_console`. Ví dụ một file script : 
@@ -366,8 +424,9 @@ back
 
 Những file script được lưu trong thư mục `scripts`
 
-<a name=""></a>
+<a name="auth"></a>
 ## 6. Xác thực (Authentication)
+
 Các kiểu xác thực mà w3af hỗ trợ :
 - Xác thực HTTP Basic 
 - Xác thực NTLM
@@ -464,7 +523,7 @@ Phương thức này sẽ đặt một HTTP request header vào mỗi HTTP reque
 - Sau đó, trong `http-settings`, cấu hình các thông số của `headers_file` trỏ đến tập tin vừa tạo.
 - `save`	 
 
-<a name=""></a>
+<a name="regular"></a>
 ## 7. Các trường hợp sử dụng thông thường
 ### Quét một thư mục
 Thực hiện các bước sau : 
@@ -480,7 +539,7 @@ Thu thập dữ liệu là một quá trình khá tốn kém, trong một số t
 
 Để load dữ liệu đã lưu, sử dụng plugin ` import_results`.
 
-<a name=""></a>
+<a name="specially"></a>
 ## 8. Các trường hợp sử dụng nâng cao
 ### Ứng dụng web phức tạp 
 Một vài ứng dụng sử dụng ngôn ngữ phía trình duyệt như Javascript, Flash, Java applets nhưng w3af thì không hiểu.
@@ -528,11 +587,13 @@ Các bước thực hiện để xác định các lỗ hổng trong một REST 
 ## 9. w3af bên trong docker
 //TODO chưa hoàn thành 
 
+<a name="port"></a>
 ### a. Các port và service
 Một vài plugin như `crawl.spider_man` hay `audit.rfi` bắt đầu dịch vụ HTTP. 
 
+<a name="container"></a>
 ### b. Chia sẻ dữ liệu với container
-
+<a name="fix"></a>
 ### c. Sửa lỗi container
 Container chạy một SSH daemon, có thể chạy bằng `w3af_console` hoặc `w3af_gui`. Để kết nối một container đang chạy, sử dụng username `root` và password `w3af`. Bạn không cần quan tâm đến điều này, các script trợ giúp sẽ kết nối container cho bạn.
 
@@ -619,8 +680,9 @@ Please use the interact command to interact with the shell objects.
 //TODO chưa hoàn thành
 
 
-<a name=""></a>
+<a name="warning"></a>
 ## 12. Báo lỗi 
+<a name="pracwarn">
 ### a. Thực hành báo lỗi 
 Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi, hãy báo cáo lại theo các thông tin sau:
 - Chi tiết các bước tạo ra lỗi
@@ -629,8 +691,10 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 - Output của lệnh `./w3af_console --version`
 - File log
 
+<a name="gui"></a>
 ## 13. Giao diện đồ họa (GUI)
 //TODO chưa hoàn thành 
+<a name="guistr">
 ### a. Cấu trúc chung  
 // TODO @k54hungyb	
 <img src="http://docs.w3af.org/en/latest/_images/general-structure.png">
@@ -640,154 +704,33 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 3. Các tab chức năng
 4. 
 #### Toolbar
-
+<a name="scanvul"></a>
 ### b. Quét lỗ hổng
 // TODO @k54hungyb
-
+<a name="analysis"></a>
 ### c. Phân tích kết quả 
 // TODO @ngtuanthanh
-
+<a name="discovery"></a>
 ### d. Khai thác 
 // TODO @congoccho
-
+<a name="tools"></a>
 ### e. Các công cụ 
-
-<a name = ""></a>
-####1. Wizard
-- Wizard: Tạo 1 cấu hình mới để quét trang web mục tiêu.
-
-- Khi bấm Wizard  trên thanh công cụ một cửa sổ mới sẽ hiện ra.
-
-- Bạn sẽ chọn wizard từ cửa sổ:
-
-	Infrastructure wizard(wizard cơ sở): thuật sĩ này sẽ tạo cho bạn 1 cấu hình quét với mục đích nào đó để xác định cơ sở hạ tầng 		trang Web mục tiêu.
-
-	Short wizard: 1 thuật sĩ demo nhỏ để lấy mã GUI.
--  Tiếp tục chọn Run the Wizard: Bạn điền URL mục tiêu và chọn Next.
-
--  Sau đó bấm Next để cài đặt cho cấu hình mới. Cuối cùng là điền tên và mô tả về cấu hình mới sau đó bấm save.
-
-<a name = ""></a>
-####2.  Manual request (nhãn yêu cầu).
-- Công cụ này cho phép bạn gửi yêu cầu đến HTTP.
-
-<img src = "http://docs.w3af.org/en/latest/_images/manual-http.png">
-
-- Mở manual request cửa sổ mới hiện ra: hiển thị yêu cầu HTTP và đáp ứng lại của HTTP(mỗi phần đều có raw(nguyên văn) và header(tiêu đề)).
-
-- Bạn cũng có thể chỉnh sửa yêu cầu. Khi đã sẵn sàng chọn Send
-
-- Sau đó sẽ nhận được hồi đáp ở phần Response.
-
-<a name = ""></a>
-####3. Fuzzy request (yêu cầu mờ)
-- Công cụ này cho phép bạn gửi được nhiều yêu cầu đến HTTP một cách dễ dàng và kiểm soát được nó.
-
-- Khi bạn tạo ra một yêu cầu, tất cả các văn bản được gửi đến đích, ngoại trừ những phần được bên trong hai dấu  $. Văn bản này được sử dụng bởi hệ thống để tạo ra một “máy phát  mờ”, mà nó sẽ tiêu thụ tạo ra nhiều yêu cầu.
-
-- VD:  Nếu bạn đặt một văn bản giữa hai dấu $ mà tạo ra ba mục, bạn sẽ tạo ra ba yêu cầu, và sẽ có được ba hồi đáp. Bạn có thể đặt nhiều máy phát  mờ như bạn muốn, và hệ thống sẽ tạo ra nhiều yêu cầu sử dụng tất cả các kết hợp có thể. Vì vậy, nếu bạn giữ cho máy phát  đầu tiên (mà tạo ra ba mục), và chèn một cái mới mà tạo ra năm mục, hệ thống sẽ tạo 3 x 5 = 15 yêu cầu.
-
-- Hệ thống này sẽ tạo ra các mục khác nhau bằng cách sử dụng văn bản giữa các dấu `$`, sử dụng trực tiếp `eval ()`, với một không gian gần như sạch (chỉ có các mô-đun chuỗi đã nhập khẩu). Không có cơ chế bảo mật trong việc đánh giá này. Sử dụng đánh giá này, ví dụ, bạn có thể làm:
-
-	Số 0-4: `$ phạm vi (5) $`
-
-	Mười kí tự đầu lá thư: `$ string.lowercase [: 10] $`
-
-	Những từ spam và : `$ [ 'spam', 'egg'] $`
-
-	Các nội dung của một tập tin: `$ [l.strip () cho l trong tập tin ("INPUT.TXT ')] $`
-
-- Kiểm tra có bao nhiêu yêu cầu hệ thống tạo ra, bằng  nút Analyze [3].  Ngoài ra, nếu bạn đánh dấu vào hộp kiểm Preview [4] sẽ cho bạn thấy nội dung của chúng trong một cửa sổ pop up mới.
-
-<img src = "http://docs.w3af.org/en/latest/_images/fuzzy.png">
-
-- Bạn có thể sử dụng Play và Stop [5] để gửi yêu cầu. Ngoài ra, bạn có thể xem yêu cầu nào đang thực hiện ở Throbber [6].
-
-- Nút [9] để gửi yêu cầu hoặc phản ứng với các yêu cầu cụ bằng tay hoặc công cụ so sánh,  nút Clear [A] sẽ xóa tất cả các kết quả, và một Cluster (Cụm) Responses [B] sẽ gửi tất cả các câu trả lời các công cụ cluster (lưu ý rằng công cụ này là chỉ có thể truy cập qua ở đây, vì nó chỉ có ý nghĩa để sử dụng nó từ nhiều tạo ra phản ứng).
-
-- Các công cụ Responses Cluster phép bạn phân tích tất cả các câu trả lời khi nhìn thấy đồ họa  chúng khác với nhau. Các biểu đồ sẽ cho bạn thấy những câu trả lời, và khoảng cách giữa chúng cho một phân tích tốt hơn.
-
--Ngoài ra bạn có các nút khác nhau giúp bạn xem đồ thị tốt hơn: phóng to, thu nhỏ, phù hợp với tất cả các đồ thị trong cửa sổ, và hiển thị các đồ thị trong các kích thước ban đầu.
-####4. Encode and Decode
-- Công cụ này cho phép bạn áp dụng một số chức năng mã hóa và giải mã trong văn bản mà bạn muốn.
-
-<img src = "http://docs.w3af.org/en/latest/_images/encode-decode.png">
-
-- Bạn có thể đưa các văn bản để mã hóa ở ô bên trên [1] bấm [3], và khi mã hóa sẽ xuất hiện trong cửa sổ bên dưới [2], và ngược lại: để giải mã một cái gì đó đưa văn bản vào khung bên dưới  rôi bấm [4] và sau khi giải mã nó sẽ xuất hiện ở phía trên cửa sổ.
-
-- Bạn có chức năng mã hóa và giải mã sau đây:
-
-	0xFFFF Encoding: phương pháp mã hóa 0x
-
-	Base64 Mã hóa / Giải mã: Mã hóa và giải mã sử dụng Base64
-
-	Double Nibble Hex Encoding: Đây là dựa vào phương pháp mã hóa hex tiêu chuẩn. Mỗi giá trị niibble thập lục phân được mã hóa bằng cách 			sử dụng mã hóa hex tiêu chuẩn
-
-	Double Percent Hex Encoding: Đây là dựa trên các phương pháp thông thường mã hóa hex.Tỷ lệ này được mã hóa bằng cách sử dụng mã hóa 			hex tiếp theo là giá trị 16 byte được mã hóa
-
-	Double URL Encode / Decode: Mã hóa và giải mã  đôi URL mã hóa.
-
-	First Nibble Hex Encoding: Tương tự như tăng gấp đôi mã hóa hex nibble. Sự khác biệt là chỉ nibble đầu tiên được mã hóa
-	HTML Escape / unescape: Mã hóa và giải mã HTML  thoát
-
-	Hex Encoding / Decoding: Đây là một trong những cách RFC compliamt cho mã hóa một URL. Đây cũng là phương pháp đơn giản để mã hóa 			URL. Các phương pháp mã hóa bao gồm thoát một giá trị 16 byte cho mã hóa với 1%
-
-	MD5 Hash: Mã hóa bằng MD5
-
-	MS SQL Encode: Chuyển đổi văn bản đến một lệnh MS SQL  Microsoft% U Encoding: này trình bày một cách khác nhau để mã hóa các giá trị 			điểm mã Unicode lên đến 65.535 (hoặc hai byte). % U trước 4 giá trị nibble hệ 16 đại diện cho các giá trị điểm mã Unicode
-
-	MySQL Encode: Chuyển đổi văn bản đến một lệnh MySQL 
-
-	Random Lowercase: Thay đổi ký tự ngẫu nhiên của chuỗi sang chữ thường
-
-	Random Uppercase: Thay đổi ký tự ngẫu nhiên của chuỗi sang chữ hoa
-
-	SHA1 Hash: Mã hóa sử dụng SHA1
-
-	Second Nibble Hex Encoding: Tương tự như tăng gấp đôi mã hóa hex nibble. Sự khác biệt là chỉ nibble thứ hai là mã hóa
-
-	Encode URL / Decode : Mã hóa và giải mã URL mã hóa
-
-	UTF-8 Barebyte Encoding: Chỉ cần một mã hóa bình thường UTF-8
-
-	UTF-8 Endode:  Lưu ý rằng các giá trị thập lục phân được hiển thị với 1%.
-
-####5. Comparing HTTP traffic
-- Với công cụ này bạn sẽ có thể so sánh các yêu cầu khác nhau và hồi đáp.
-
-- Trong công cụ này tất cả các thông tin được nối trong cùng một văn bản, để dễ dàng so sánh, nhưng bạn có nút [1] để kiểm soát một phần của thông tin xuất hiện trong văn bản: tiêu đề yêu cầu, nội dung yêu cầu , tiêu đề hồi đáp và nội dung hồi đáp.
-
-- Việc so sánh được thực hiện giữa các yêu cầu / hồi đáp ở bên trái [2], và bất cứ yêu cầu / hồi đáp, bạn có ở bên phải [3]. Công cụ này được chuẩn bị để xử lý nhiều hơn so với hai yêu cầu / hồi đáp: bạn sẽ luôn luôn có một yêu cầu / hồi đáp ở bên trái, và tất cả các yêu cầu / hồi đáp mà bạn đã thêm vào ở bên phải. Để xem chính xác những gì bạn đang so sánh, hệ thống hiển thị bạn mỗi id [4].
-
-<img src = "http://docs.w3af.org/en/latest/_images/compare-tool.png">
-
-- Bạn có thể chọn các yêu cầu / hồi đáp mà bạn đã thêm so sánh với một ở bên phải [5]. Nếu bạn muốn thay đổi các yêu cầu / hồi đáp đó là ở bên trái, bạn có thể đặt nó bằng cách sử dụng văn bản nút Set [6] để so sánh. Bạn có thể xóa bất kỳ yêu cầu / phản ứng ở bên phải bằng cách sử dụng nút Delete [7], hoặc xóa tất cả chúng với Clear All [8].
-
-- Các yêu cầu cũng có thể được gửi từ công cụ này để yêu cầu bằng tay hoặc yêu cầu những yêu cầu mờ, sử dụng các nút trên các văn bản [9]. Ngoài ra còn có một nút [A] để gửi tất cả các hồi đáp ở các quyền công cụ Responses Cluster.
-
-####6. Using the Proxy
-- Công cụ này là một proxy nó nghe một cổng trong máy bạn đang chạy chương trình w3af. Bạn có thể cấu hình bất kỳ chương trình mà vấn đề yêu cầu HTTP (như trình duyệt internet của bạn, ví dụ) để sử dụng proxy.
-
-- Khi chương trình này yêu cầu các vấn đề khác, các proxy nắm bắt nó và bạn thấy nó ở [1]. Bạn có thể chọn để giảm yêu cầu này ở nút Drop [2], hoặc để yêu cầu tiếp tục. Nếu bạn chọn sau, bạn có thể chỉnh sửa theo yêu cầu như bạn muốn, và sau đó nhấn vào nút Gửi [3].
-
-<img src = "http://docs.w3af.org/en/latest/_images/proxy.png">
-
-- Vì vậy, hệ thống sẽ gửi yêu cầu, và nắm bắt các hồi đáp khi đến, và sẽ hiển thị nó cho bạn tại cửa sổ [4] ngay. Sau khi phân tích các hồi đáp , bạn có thể nhấp vào nút Tiếp theo [5] và chuẩn bị để nắm bắt những yêu cầu HTTP tới.
-
-- Để làm việc với các yêu cầu HTTP và hồi đáp bạn ở nút [6] để gửi thông tin đến các công cụ khác. Ngoài ra bạn có một cửa sổ Lịch sử [7] cho phép bạn tìm kiếm trên tất cả các yêu cầu và trả lời.
-
-- Trong thanh công cụ [8] bạn có một nút Activate để kiểm soát nếu proxy được kích hoạt hay không, một yêu cầu nút Trap đó sẽ xác định nếu các proxy là để cho các yêu cầu đi qua mà không có thủ tục giải thích ở trên, và một nút Configuration(tham khảo thêm [Certificate authority configuration](http://docs.w3af.org/en/latest/ca-config.html)).
-
-*Trên đây là bài viết của mình về các tool trong w3af_gui. Phiên bản của chúng ta dùng những cửa sổ của các công cụ hiện ra sẽ khác nhưng những button thì cũng như nhau cả thôi!!!. Đơn giản và cũng khá dễ hiểu để biết chi tiết hơn hãy tham khảo nguồn: link bên dưới nhé!*
-*Nguồn* : http://docs.w3af.org/en/latest/gui/index.html
-
-### f. Cấu hình 
-// TODO @dungtran211096
+// TODO @toioccho
+<a name="config"></a>
+### f. Cấu hình
+Các bảng điều khiển cấu hình khác nhau trên mọi hệ thống w3af.Ở đây tất cả bảng đều được giải thích
+#### HTTP configuration
+Phần này thường sử dụng cài đặt cấu hình `URL`,nó sẽ ảnh hưởng lên core và tất cả plugins.
+<img src="http://docs.w3af.org/en/latest/_images/http-settings.png">
+####Miscellaneous configuration
+DÙng để cài đặt cấu hình `misc`, nó ảnh hưởng lên core và tất cả plugins.
+<img src="">
+####Advanced Target configuration
+Thường được dùng để cung cấp thông tin chi tiết về hệ thống `mục tiêu`.
+<img src="http://docs.w3af.org/en/latest/_images/target-conf.png">
 
 ----
-// TODO @dungtran211096 : viết mục lục, đặt liên kết trong trang
-
+<a name="refer"></a>
 ## 14. Tham khảo
 
 http://docs.w3af.org/en/latest/
-
