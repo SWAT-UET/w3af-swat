@@ -709,26 +709,33 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 1. Thanh menu
 2. Toolbar
 3. Các tab chức năng
-4. Hiển thị tiến trình quét( Bắt đầu và kết thúc quét)
+4. Hiển thị tiến trình quét (Bắt đầu và kết thúc quét)
 5. 
 6. Các profile
 7. Plugin dùng để quét lỗ hổng
 8. Hiển thị thông tin chi tiết khi bạn chọn các mục ở menu bên trái
 9. Nhập URL cần quét
 
-#### Toolbar
-
 <a name="scanvul"></a>
 ### b. Quét lỗ hổng
-1. Các bước thực hiện.
-- Khởi động W3af Gui bằng cửa sổ dòng lệnh trên Ubuntu.
-- Gõ: w3af
-- Để thực hiện câu lệnh đó bạn phải cài đặt w3af gui.
-2. Tiến hành quét: VD: ctmail.vnu.edu.vn
-- Lựu ý là trong một số trường hợp w3af_gui sẽ bị force close, Nhưng bạn không nên lo lắng vì bên cửa sổ dòng lệnh vẫn sẽ chạy và hiện kết quả.
-- Chúng ta có thể nhập một địa chỉ URL bất kì vào ô (9).
-- Nhấn start bên cạnh ô (9) hoặc nút mũi tên trên thanh toolbar(2)
-- Sau khi nhấn start phần mềm sẽ tự động chuyển sang tab log và các lỗi sẽ hiện ra (màu đỏ), đợi một vài phút khi nào góc trái(4) hiện quét xong hoặc trong temical hiện quét xong là ok.
+
+#### Khởi động 
+	
+    $ ./w3af_gui
+ 
+#### Cấu hình 
+
+#### Sử dụng profile 
+
+#### Tiến hành quét 
+*(VD: http://uetmail.vnu.edu.vn/webmail/src/login.php)*
+
+*Lưu ý là trong một số trường hợp `w3af_gui` sẽ bị **force close**, nhưng bạn không nên lo lắng vì bên cửa sổ dòng lệnh vẫn sẽ chạy và hiện kết quả*
+
+- Nhập một địa chỉ URL bất kì vào ô `9`
+
+- Nhấn start bên cạnh ô `9` hoặc nút mũi tên trên thanh toolbar `2`
+- Sau khi start, phần mềm sẽ tự động chuyển sang tab log và các lỗi sẽ hiện ra (màu đỏ), đợi một vài phút khi nào góc trái `4` hiện quét xong hoặc trong terminal hiện quét xong là ok.
 - Sau khi quét xong: Muốn tìm lỗ hổng bảo mật ta vào tab Results>KB Browser, Lỗ hổng bảo mật sẽ được show ra chữ màu vàng nổi bật, cụ thể sau khi quét xong trang web vì dụ trên chúng ta có thể thấy dduocj có một lỗ hổng là: Cross site request forgery
 - Đặc điểm lỗ hổng hiện bên cạnh. 
 
