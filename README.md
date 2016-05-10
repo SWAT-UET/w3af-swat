@@ -704,22 +704,63 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 
 <a name="guistr">
 ### a. Cấu trúc chung  
-// TODO @k54hungyb	
 <img src="http://docs.w3af.org/en/latest/_images/general-structure.png">
 
 1. Thanh menu
 2. Toolbar
 3. Các tab chức năng
-4. 
+4. Hiển thị tiến trình quét( Bắt đầu và kết thúc quét)
+5. 
+6. Các profile
+7. Plugin dùng để quét lỗ hổng
+8. Hiển thị thông tin chi tiết khi bạn chọn các mục ở menu bên trái
+9. Nhập URL cần quét
+
 #### Toolbar
 
 <a name="scanvul"></a>
 ### b. Quét lỗ hổng
-// TODO @k54hungyb
+1. Các bước thực hiện.
+- Khởi động W3af Gui bằng cửa sổ dòng lệnh trên Ubuntu.
+- Gõ: w3af
+- Để thực hiện câu lệnh đó bạn phải cài đặt w3af gui.
+2. Tiến hành quét: VD: ctmail.vnu.edu.vn
+- Lựu ý là trong một số trường hợp w3af_gui sẽ bị force close, Nhưng bạn không nên lo lắng vì bên cửa sổ dòng lệnh vẫn sẽ chạy và hiện kết quả.
+- Chúng ta có thể nhập một địa chỉ URL bất kì vào ô (9).
+- Nhấn start bên cạnh ô (9) hoặc nút mũi tên trên thanh toolbar(2)
+- Sau khi nhấn start phần mềm sẽ tự động chuyển sang tab log và các lỗi sẽ hiện ra (màu đỏ), đợi một vài phút khi nào góc trái(4) hiện quét xong hoặc trong temical hiện quét xong là ok.
+- Sau khi quét xong: Muốn tìm lỗ hổng bảo mật ta vào tab Results>KB Browser, Lỗ hổng bảo mật sẽ được show ra chữ màu vàng nổi bật, cụ thể sau khi quét xong trang web vì dụ trên chúng ta có thể thấy dduocj có một lỗ hổng là: Cross site request forgery
+- Đặc điểm lỗ hổng hiện bên cạnh. 
 
 <a name="analysis"></a>
 ### c. Phân tích kết quả 
-// TODO @ngtuanthanh
+
+1.Cơ sở(KB Browse):
+Trong phần bên trái của cửa sổ bạn sẽ tìm thấy thông tin của cơ sở kiến ​​thức.
+Theo mặc định nó chỉ cho bạn thấy những lỗ hổng và thông tin, nhưng bạn có thể bật hoặc ẩn bất kỳ thứ gì và sử dụng các hộp kiểm thông tin.
+Các thông tin được nhóm theo một cây, nhưng bạn có các nút khác nhau để mở rộng.
+Nếu bạn chọn một trong các mục, và mục tương ứng với một yêu cầu HTTP có nguồn gốc của các chức năng quét, bạn sẽ thấy ở phần bên phải của cửa sổ tất cả các thông tin 
+về yêu cầu và phản ứng của nó 
+Các mục trong cây có màu đó cho thấy mức độ nghiêm trọng của vấn đề: 
++ Màu đen cho thông tin
++ Màu cam cho lỗ hổng có mức độ thấp
++ Màu đỏ cho những mức độ cao trung bình
+
+2.Cấu trúc trang web(URL):
+Tab URL cho thấy cấu trúc của trang web mà hệ thống làm việc
+Nó tách thành hai phần: 
++ Tại bên trái bạn có thể xem cấu trúc trang web với một danh sách các nút. 
++ Tại bên phải bạn có những thông tin tương tự nhưng đồ họa
+Trên các bản vẽ bạn có các nút khác nhau giúp bạn xem đồ thị tốt hơn: phóng to, thu nhỏ, phù hợp với tất cả các đồ thị trong cửa sổ, và hiển thị các đồ thị trong các kích thước ban đầu.
+
+3.Yêu cầu và trả lời(Request/Respones):
+Trong cửa sổ này, bạn sẽ có thể tìm kiếm bất kỳ yêu cầu (và các phản ứng liên quan) mà hệ thống đã tạo ra trong quá trình quét. 
+Trong các mục nhập văn bản, bạn có thể chèn một truy vấn để tìm kiếm cơ sở dữ liệu kiến ​​thức cho các yêu cầu và trả lời. 
+Bạn có một cú pháp linh hoạt để xây dựng truy vấn của bạn, để biết chi tiết về cú pháp, nhấp vào nút Trợ giúp ở bên phải, và một cửa sổ tương tự với một hiển thị ở đây sẽ được trình bày cho bạn. 
+Sau khi bạn nhập truy vấn, và nhấn vào nút Find, hệ thống sẽ lấy tất cả các yêu cầu và phản ứng phù hợp, và sẽ giới thiệu họ với bạn trong danh sách kết quả.
+Nếu bạn nhấn chuột vào bất kỳ của những kết quả, bạn sẽ thấy những yêu cầu và đáp ứng các chi tiết
+Như thường lệ khi thấy số yêu cầu và trả lời, bạn sẽ có các nút công cụ để sử dụng các dữ liệu trong các công cụ đã quen thuộc.
+
 
 <a name="discovery"></a>
 ### d. Khai thác 
