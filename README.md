@@ -718,15 +718,17 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 
 <a name="scanvul"></a>
 ### b. Quét lỗ hổng
-1. Khởi động 
+
+#### Khởi động 
 	
     $ ./w3af_gui
  
-2. Cấu hình 
+#### Cấu hình 
 
-3. Sử dụng profile 
+#### Sử dụng profile 
 
-4. Tiến hành quét (VD: http://uetmail.vnu.edu.vn/webmail/src/login.php)
+#### Tiến hành quét 
+*(VD: http://uetmail.vnu.edu.vn/webmail/src/login.php)*
 
 *Lưu ý là trong một số trường hợp `w3af_gui` sẽ bị **force close**, nhưng bạn không nên lo lắng vì bên cửa sổ dòng lệnh vẫn sẽ chạy và hiện kết quả*
 
