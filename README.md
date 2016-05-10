@@ -720,7 +720,8 @@ Nếu bạn sử dụng framework bản mới nhất và tìm thấy một lỗi
 ### b. Quét lỗ hổng
 1. Khởi động 
 	
-	$ ./w3af_gui 
+    $ ./w3af_gui
+ 
 2. Cấu hình 
 
 3. Sử dụng profile 
